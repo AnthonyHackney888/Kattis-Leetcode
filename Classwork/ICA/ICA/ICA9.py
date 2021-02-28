@@ -1,1 +1,0 @@
-from ICA9 import student
