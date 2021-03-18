@@ -9,6 +9,7 @@ A Repository of my personal Projects and coding challenges from hackerrank and k
 * [Java](https://docs.oracle.com/en/java/) - Used for mobile applications and unit testing
 * [Rust](https://www.rust-lang.org/) - Used to experiment with lower languages
 * [Kotlin](https://kotlinlang.org/docs/home.html) - Used for android apps 
+* [MySQL](https://dev.mysql.com/doc/) - Used with Java to experiment with code and DBMS
 
 ## Authors
 * **Anthony Hackney** 
