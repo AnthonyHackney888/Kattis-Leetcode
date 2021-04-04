@@ -1,12 +1,12 @@
 import java.sql.*;     // Use classes in java.sql package
  
-public class bookInsertTest {    // Save as "JdbcUpdateTest.java"
+public class bookInsertTest implements bookConnection{    // Save as "JdbcUpdateTest.java"
+final static String SQLdatabase = "userDb";   
    public static void main(String[] args) {
       try (
          // Step 1: Allocate a database 'Connection' object
-         Connection conn = DriverManager.getConnection(
-               "jdbc:mysql://localhost:3306/libraryusers?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC",
-               "root", "****"); // for MySQL only
+         Connection conn = DriverManager.getConnection(bookConnection.JDBC_DRIVER,
+            bookConnection.USER,bookConnection.pass);
  
          // Step 2: Allocate a 'Statement' object in the Connection
          Statement stmt = conn.createStatement();
@@ -15,9 +15,7 @@ public class bookInsertTest {    // Save as "JdbcUpdateTest.java"
          //   which returns an int indicating the number of rows affected.
          
          // DELETE records with id>=1 and id<2
-         String sqlDelete = "delete from userDb where id >= 1 and id < 2";
-         System.out.println("The SQL statement is: " + sqlDelete + "\n");  // Echo for debugging
-         int countDeleted = stmt.executeUpdate(sqlDelete);
+         int countDeleted = stmt.executeUpdate(strDelete());
          System.out.println(countDeleted + " records deleted.\n");
  
          // INSERT a record
@@ -40,10 +38,9 @@ public class bookInsertTest {    // Save as "JdbcUpdateTest.java"
         int countInserted = stmt.executeUpdate(sqlInsert);
          System.out.println(countInserted + " records inserted.\n");
  
-         // Step 3 & 4: Issue a SELECT (via executeQuery()) to check the changes
-         String strSelect = "select * from userDb";
-         System.out.println("The SQL statement is: " + strSelect + "\n");  // Echo For debugging
-         ResultSet rset = stmt.executeQuery(strSelect);
+        
+         ResultSet rset = stmt.executeQuery( strSelect());
+
          while(rset.next()){
             System.out.println(rset.getInt("id") + ", "
             + rset.getString("fName") + ", "
@@ -53,5 +50,17 @@ public class bookInsertTest {    // Save as "JdbcUpdateTest.java"
       } catch(SQLException ex) {
          ex.printStackTrace();
       }  // Step 5: Close conn and stmt - Done automatically by try-with-resources
+   }
+
+   protected static String strDelete(){
+      String sqlDelete = "delete from "+SQLdatabase+" where id >= 1 and id < 2";
+      String returnDelete="The SQL statement is: " + sqlDelete + "\n";  // Echo for debugging
+      return returnDelete;
+   }
+
+   protected static String strSelect(){
+      String strSelect = "select * from"+ SQLdatabase;
+      String returnString = "The SQL statement is: "+ strSelect+"\n";
+      return returnString;
    }
 }

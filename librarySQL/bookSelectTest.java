@@ -1,12 +1,12 @@
 import java.sql.*;  // Using 'Connection', 'Statement' and 'ResultSet' classes in java.sql package
  //notfinished nned to create new sql for users
-public class bookSelectTest {   // Save as "JdbcSelectTest.java"
+public class bookSelectTest implements bookConnection {   // Save as "JdbcSelectTest.java"
+final static String SQLdatabase = "userDb";   
    public static void main(String[] args) {
       try (
          // Step 1: Construct a database 'Connection' object called 'conn'
-         Connection conn = DriverManager.getConnection(
-               "jdbc:mysql://localhost:3306/libraryusers?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC",
-               "root", "****");   // For MySQL only
+         Connection conn = DriverManager.getConnection(bookConnection.JDBC_DRIVER,
+         bookConnection.USER,bookConnection.pass);
                // The format is: "jdbc:mysql://hostname:port/databaseName", "username", "password"
  
          // Step 2: Construct a 'Statement' object called 'stmt' inside the Connection created
@@ -14,10 +14,9 @@ public class bookSelectTest {   // Save as "JdbcSelectTest.java"
       ) {
          // Step 3: Write a SQL query string. Execute the SQL query via the 'Statement'.
          //  The query result is returned in a 'ResultSet' object called 'rset'.
-         String strSelect = "select fname, lname,numBookCheckedOut, qty from userDb";
-         System.out.println("The SQL statement is: " + strSelect + "\n"); // Echo For debugging
+
  
-         ResultSet rset = stmt.executeQuery(strSelect);
+         ResultSet rset = stmt.executeQuery(strSelect());
  
          // Step 4: Process the 'ResultSet' by scrolling the cursor forward via next().
          //  For each row, retrieve the contents of the cells with getXxx(columnName).
@@ -39,5 +38,11 @@ public class bookSelectTest {   // Save as "JdbcSelectTest.java"
       } catch(SQLException ex) {
          ex.printStackTrace();
       }  // Step 5: Close conn and stmt - Done automatically by try-with-resources (JDK 7)
+   }
+
+   protected static String strSelect(){
+      String strSelect = "select fname, lname,numBookCheckedOut, qty from "+ SQLdatabase;
+      String returnString = "The SQL statement is: "+ strSelect+"\n";
+      return returnString;
    }
 }
