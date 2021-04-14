@@ -1,33 +1,49 @@
+
 public class manager extends employee {
-    @Override
-    public boolean addUser(){
-        return false;
-
+    
+    private int managerID;
+    String sqlUpdate = "UPDATE userDB "
+    + "SET fName = ? "
+    + "SET lName = ? "
+    + "WHERE id = ?";
+    public manager(String fName, String lName, int managerID){
+        super(fName, lName);
+        this.managerID = managerID;
     }
-    @Override
-    public boolean removeUser(){
-        return false;
 
+    /**
+     * @return int return the managerID
+     */
+    public int getManagerID() {
+        return managerID;
     }
-    @Override
-    public boolean returns(){
-        return false;
 
+    /**
+     * @param managerID the managerID to set
+     */
+    public void setManagerID(int managerID) {
+        this.managerID = managerID;
     }
-    @Override
-    public void checkOut(){
+
+ 
+    public void addUser(String fName, String lName,int id){
         
     }
-    public boolean addEmployee(){
+   
+    public boolean removeUser(int id){
         return false;
 
     }
-    public boolean removeEmployee(){
+    
+    public boolean addEmployee(int empId){
         return false;
 
     }
-    public int managerID(){
-        return 0;
-        
+    public boolean removeEmployee(int empId){
+        return false;
+
     }
+   
+
+
 }
