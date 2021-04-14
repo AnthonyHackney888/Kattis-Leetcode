@@ -1,68 +1,54 @@
 import java.sql.*;
+import java.util.Scanner;
 
 
 
 
-public class employee implements bookConnection {
-    private String fName;
-    private String lName;
-    public employee(String fName, String lName){
-        this.fName = fName;
-        this.lName = lName;
-        
+public class employee  {
+    static Connection conn=null;
+
+
+
+    public employee(){
     }
    
-    /**
-     * @return String return the fName
-     */
-    public String getFName() {
-        return fName;
-    }
-
-    /**
-     * @param fName the fName to set
-     */
-    public void setFName(String fName) {
-        this.fName = fName;
-    }
-
-    /**
-     * @return String return the lName
-     */
-    public String getLName() {
-        return lName;
-    }
-
-    /**
-     * @param lName the lName to set
-     */
-    public void setLName(String lName) {
-        this.lName = lName;
-    }
-    public static void not(){
-
+       public static void addUser(){
+        conn = bookConnection.getConnection();
+        Library li = new Library();
+        li.creatTable("create table if not exists userDB( name varchar(50), booksCheckedOut int,  userID int)");
     
-
-
-        try{
-        Connection conn = DriverManager.getConnection(bookConnection.JDBC_DRIVER,
-        bookConnection.USER,bookConnection.pass);
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("select * from userDB");
-        
-            
-            while(rs.next()){
-            userClass user = new userClass(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
-            
-            String sqlUpdate = "UPDATE userDB "
-            + "SET"+user.getFName()+ "= ? "
-            + "SET"+user.getLName()+ "= ? "
-            + "WHERE"+user.getUserID() +" = ?";
+        Scanner scnr = new Scanner(System.in);
+        System.out.println("Eneter new users name: ");
+        String name = scnr.next();
+        System.out.println("Eneter how many books checkedout: ");
+        int booksCheckedOut = scnr.nextInt();
+        System.out.println("Eneter new users id: ");
+        int userID = scnr.nextInt();
+    
+    
+        String insertData = "insert into UserDB values(?,?,?)";
+        //String insertData = "insert into Manager values(?,?,?)";
+        //String insertData = "insert into employee values(?,?,?)";
+    
+            try {
+                PreparedStatement ps = conn.prepareStatement(insertData);
+                ps.setString(1, name);
+                ps.setInt(2, booksCheckedOut);
+                ps.setInt(3, userID);
+                int sucess = ps.executeUpdate();
+                if(sucess>0){
+                    System.out.println("Insert sucessfull");
+                }
+            } catch (Exception e) {
+                //TODO: handle exception
+            }finally{
+                try {
+                   conn.close();
+                } catch (Exception e) {
+                    //TODO: handle exception
+                }
             }
-            
-        }catch(SQLException ex) {
-            ex.printStackTrace();
-         } 
+    scnr.close();
         }
            
 }
