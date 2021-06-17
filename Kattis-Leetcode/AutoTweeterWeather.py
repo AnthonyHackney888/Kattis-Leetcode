@@ -9,8 +9,8 @@ auto_message_greet = 'AUTO TWEET: '
 target_time = "17:18:00"
 message = 'Step 1: create auto tweeter that works.'
 
-auth = tweepy.OAuthHandler('GVBrIeelqRvm6fBV2YJR2TEi5', 'WjmtcfT3GxLE0N9BA6kAdgLeL1I5PcTFQG5FMNKh3z1QYwD4AA')
-auth.set_access_token('1260637407042588678-y6ItYJ4G0MdWRsJYfsT9Iogsl7qVmX', 'POUqeaW31khpNS00mzclcKfHKvvWrBfD6tVsnai0MfZmD')
+auth = tweepy.OAuthHandler()
+auth.set_access_token()
 
 
 def weatherObserver():
