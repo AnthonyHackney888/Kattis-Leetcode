@@ -1,6 +1,6 @@
 # Personal Projects
 
-A Repository of my personal Projects and coding challenges from hackerrank and kattis
+A Repository of my old personal Projects that were created during and shortly after my time at Central Micigan University
 
 
 ## Languages used 
@@ -12,7 +12,7 @@ A Repository of my personal Projects and coding challenges from hackerrank and k
 * [MySQL](https://dev.mysql.com/doc/) - Used with Java to experiment with code and DBMS
 
 ## Authors
-* **Anthony Hackney** 
+* **Anthony Hackney** email me at ahbcode@gmail.com
 
 
 
